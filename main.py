@@ -20,11 +20,11 @@ def get_instruction(code_line: str) -> dict:
         instruction = {"operation": "sub", "variable_name": variable_name, "value": value}
 
 
-    elif '>' in code_line:
+    elif  'if' in code_line:
         components = code_line.split(" ")
-        variable_1_name = components[1]
-        variable_2_name = components[3]
-        instruction = {"operation": ">", "variable_1_name": variable_1_name, "variable_2_name": variable_2_name}
+        variable_1_name = int(components[1])
+        variable_2_name = int(components[3])
+        instruction = {"operation": 'if', "variable_1_name": variable_1_name, "variable_2_name": variable_2_name}
 
     return instruction
 
@@ -46,6 +46,16 @@ def execute(code_line: str) -> None:
         variable_name = instruction['variable_name']
         value = instruction["value"]
         variables[variable_name] -= value
+
+    elif instruction['operation'] == 'if':
+        variable_1_name = instruction['variable_1_name']
+        variable_2_name = instruction['variable_2_name']
+        if variable_1_name > variable_2_name: print('variable_1_name > variable_2_name')
+        if variable_1_name == variable_2_name: print('variable_1_name = variable_2_name')
+        else:  print('variable_1_name < variable_2_name')
+
+
+
 
 
 

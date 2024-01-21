@@ -33,7 +33,10 @@ def execute(code_line: str) -> None:
         # Обращаемся к глобальному словарю переменных, 
         # записываем по имени переменной соответствующее значение
         variables[variable_name] = value
-
+    elif instruction["operation"] == "multiply":
+        variable_name = instruction["variable_name"]
+        value = instruction["value"]
+        variables[variable_name] *= value
 
 if __name__ == '__main__':
     print("Вас приветствует консоль! Удивительно, не правда ли? Вводите команды.")

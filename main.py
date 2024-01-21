@@ -19,6 +19,8 @@ def get_instruction(code_line: str) -> dict:
         value = int(components[2])
         instruction = {"operation": "sub", "variable_name": variable_name, "value": value}
 
+    elif
+
     return instruction
 
 
@@ -38,7 +40,7 @@ def execute(code_line: str) -> None:
     elif  instruction['operation'] == 'sub':
         variable_name = instruction['variable_name']
         value = instruction["value"]
-        variables[variable_name] = value
+        variables[variable_name] -= value
 
 
 

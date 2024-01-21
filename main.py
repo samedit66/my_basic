@@ -12,7 +12,12 @@ def get_instruction(code_line: str) -> dict:
         variable_name = components[0]
         value = components[2]
         instruction = {"operation": "assign", "variable_name": variable_name, "value": value}
-
+    elif "mul" in code_line:
+        components = code_line.split(" ")
+        variable_name = components[1]
+        value = components[2]
+        value = int(value)
+        instruction = {"operation": "multiply", "variable_name": variable_name, "value": value}
     return instruction
 
 

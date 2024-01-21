@@ -12,6 +12,18 @@ def get_instruction(code_line: str) -> dict:
         variable_name = components[0]
         value = components[2]
         instruction = {"operation": "assign", "variable_name": variable_name, "value": value}
+    elif "print" in code_line:
+        # Разрезаем строку по пробелам
+        components = code_line.split(" ")
+        # Извлечь принтуимое
+        value = components[1]
+        # Проверить есть ли такая переменная
+        if value in variables:
+            # Если есть то вывести значение этой переменной
+            instruction= {'operation': 'print', 'value': variables[value]}
+            # Если нет то сразу вывести число
+        else:
+            instruction= {'operation': 'print', 'value': int(value)}
 
     return instruction
 
@@ -29,6 +41,8 @@ def execute(code_line: str) -> None:
         # записываем по имени переменной соответствующее значение
         variables[variable_name] = value
 
+    elif instruction['operation'] == 'print':
+        print(instruction['value'])
 
 if __name__ == '__main__':
     print("Вас приветствует консоль! Удивительно, не правда ли? Вводите команды.")
@@ -36,3 +50,5 @@ if __name__ == '__main__':
     while True:
         command = input(">>> ")
         execute(command)
+
+

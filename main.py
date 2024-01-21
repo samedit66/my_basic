@@ -19,7 +19,12 @@ def get_instruction(code_line: str) -> dict:
         value = int(components[2])
         instruction = {"operation": "sub", "variable_name": variable_name, "value": value}
 
-    elif
+
+    elif '>' in code_line:
+        components = code_line.split(" ")
+        variable_1_name = components[1]
+        variable_2_name = components[3]
+        instruction = {"operation": ">", "variable_1_name": variable_1_name, "variable_2_name": variable_2_name}
 
     return instruction
 

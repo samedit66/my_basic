@@ -10,8 +10,17 @@ def get_instruction(code_line: str) -> dict:
         # Затем извлекаем из неё имя переменной и значение
         components = code_line.split(" ")
         variable_name = components[0]
-        value = components[2]
+        value = int(components[2])
         instruction = {"operation": "assign", "variable_name": variable_name, "value": value}
+    # Если в строке кода содержится оператор сложения
+    elif "add" in code_line:
+        # Разрезаем строку кода по пробелам
+        # Затем извлекаем из неё значение переменной и числа
+        components = code_line.split(" ")
+        variable_name = components[1]
+        # превращаем строку второго элемента в число
+        value = int(components[2])
+        instruction = {"operation": "add", "variable_name": variable_name, "value": value}
 
     return instruction
 
@@ -28,6 +37,17 @@ def execute(code_line: str) -> None:
         # Обращаемся к глобальному словарю переменных, 
         # записываем по имени переменной соответствующее значение
         variables[variable_name] = value
+
+
+        # Если операция - присваивание
+    elif instruction["operation"] == "add":
+        # Достаём из массива имя переменной и значение
+        variable_name = instruction["variable_name"]
+        value = instruction["value"]
+
+        # Обращаемся к глобальному словарю переменных, 
+        # записываем по имени переменной соответствующее значение
+        sum = variables[variable_name] + value
 
 
 if __name__ == '__main__':

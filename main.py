@@ -1,5 +1,10 @@
 variables = {}
 
+def get_digit(number):
+    if number.isdigit():
+        return int(number)
+    return variables[number] 
+
 
 def get_instruction(code_line: str) -> dict:
     instruction = {}
@@ -12,7 +17,8 @@ def get_instruction(code_line: str) -> dict:
         variable_name = components[0]
         value = int(components[2])
         instruction = {"operation": "assign", "variable_name": variable_name, "value": value}
-    # Если в строке кода содержится оператор сложения
+
+        # Если в строке кода содержится оператор сложения
     elif "add" in code_line:
         # Разрезаем строку кода по пробелам
         # Затем извлекаем из неё значение переменной и числа
@@ -22,6 +28,15 @@ def get_instruction(code_line: str) -> dict:
         value = int(components[2])
         instruction = {"operation": "add", "variable_name": variable_name, "value": value}
 
+    # Если в строке кода содержится оператор больше
+    elif ">" in code_line:
+        # Разрезаем строку кода по пробелам
+        components = code_line.split(" ")
+        # проверям элементы на число используя функцию is_digit
+        # есл иэто числе то извлекаем значения первой и второй переменных
+        first_num = get_digit(components[0])
+        second_name = get_digit(components[2])
+        instruction = {"operation": ">", "variable_name": first_num, "value": second_name}
     return instruction
 
 
@@ -49,6 +64,15 @@ def execute(code_line: str) -> None:
         # записываем по имени переменной соответствующее значение
         sum = variables[variable_name] + value
 
+            # Если операция - присваивание
+    elif instruction["operation"] == ">":
+        # Достаём из массива значения первого и второго числа
+        first_num = instruction["variable_name"]
+        second_name = instruction["value"]
+        # проверка на больше
+        if first_num > second_name:
+            return 1
+        return 0
 
 if __name__ == '__main__':
     print("Вас приветствует консоль! Удивительно, не правда ли? Вводите команды.")

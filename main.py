@@ -17,7 +17,11 @@ def get_instruction(code_line: str) -> dict:
         variable_name = components[0]
         value = int(components[2])
         instruction = {"operation": "div", "variable_name": variable_name, "value": value}
-    
+    elif "input" in code_line:
+        components = code_line.split(" ")
+        variable_name = components[0]
+        instruction = {"operation": "input", "variable": variable_name, "value": value}
+    # input a
 
     return instruction
 

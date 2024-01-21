@@ -16,7 +16,7 @@ def get_instruction(code_line: str) -> dict:
     elif 'sub' in code_line:
         components = code_line.split(' ')
         variable_name = components[1]
-        value = components[2]
+        value = int(components[2])
         instruction = {"operation": "sub", "variable_name": variable_name, "value": value}
 
     return instruction
@@ -33,6 +33,11 @@ def execute(code_line: str) -> None:
 
         # Обращаемся к глобальному словарю переменных, 
         # записываем по имени переменной соответствующее значение
+        variables[variable_name] = value
+
+    elif  instruction['operation'] == 'sub':
+        variable_name = instruction['variable_name']
+        value = instruction["value"]
         variables[variable_name] = value
 
 

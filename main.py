@@ -10,8 +10,21 @@ def get_instruction(code_line: str) -> dict:
         # Затем извлекаем из неё имя переменной и значение
         components = code_line.split(" ")
         variable_name = components[0]
-        value = components[2]
+        value = int(components[2])
         instruction = {"operation": "assign", "variable_name": variable_name, "value": value}
+
+    elif 'sub' in code_line:
+        components = code_line.split(' ')
+        variable_name = components[1]
+        value = int(components[2])
+        instruction = {"operation": "sub", "variable_name": variable_name, "value": value}
+
+
+    elif  'if' in code_line:
+        components = code_line.split(" ")
+        variable_1_name = int(components[1])
+        variable_2_name = int(components[3])
+        instruction = {"operation": 'if', "variable_1_name": variable_1_name, "variable_2_name": variable_2_name}
 
     return instruction
 
@@ -28,6 +41,22 @@ def execute(code_line: str) -> None:
         # Обращаемся к глобальному словарю переменных, 
         # записываем по имени переменной соответствующее значение
         variables[variable_name] = value
+
+    elif  instruction['operation'] == 'sub':
+        variable_name = instruction['variable_name']
+        value = instruction["value"]
+        variables[variable_name] -= value
+
+    elif instruction['operation'] == 'if':
+        variable_1_name = instruction['variable_1_name']
+        variable_2_name = instruction['variable_2_name']
+        if variable_1_name > variable_2_name: print('variable_1_name > variable_2_name')
+        if variable_1_name == variable_2_name: print('variable_1_name = variable_2_name')
+        else:  print('variable_1_name < variable_2_name')
+
+
+
+
 
 
 if __name__ == '__main__':
